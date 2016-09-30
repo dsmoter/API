@@ -6,7 +6,7 @@ gulp.task('server', function() {
   if(node)
     node.kill();
 
-  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  node = spawn('node', ['./bin/server.js'], {stdio: 'inherit'});
 
   node.on('close', function(code) {
     if(code === 8) {
@@ -15,13 +15,11 @@ gulp.task('server', function() {
   });
 });
 
-gulp.task('default', function() {
-  gulp.run('server');
+gulp.task('default', ['server', 'watch']);
 
-  gulp.watch(['./server.js'], function() {
-    gulp.run('server');
-  });
-});
+gulp.task('watch', function() {
+  gulp.watch(['./**/*.js'], ['server']);
+})
 
 process.on('exit', function() {
   if(node)
