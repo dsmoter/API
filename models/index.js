@@ -1,13 +1,12 @@
-var fs = require("fs");
-var path = require("path");
-var config = require("../config/config.json");
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(config.database, config.user, config.password, {
-  dialect: config.dialect,
-  host: config.host
-});
-
-var db = {};
+var fs = require("fs"),
+    path = require("path"),
+    config = require("../config/config.json"),
+    Sequelize = require('sequelize'),
+    sequelize = new Sequelize(config.database, config.user, config.password, {
+      dialect: config.dialect,
+      host: config.host
+    }),
+    db = {};
 
 fs
 	.readdirSync(__dirname)

@@ -1,11 +1,9 @@
-var express = require('express');
-var app = express();
-
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-
-var users = require("./routes/users");
+var express = require('express'),
+    app = express(),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    users = require("./routes/users");
 
 app.use(cookieParser());
 app.use(session({
@@ -13,6 +11,7 @@ app.use(session({
   resave: true,
   saveUninitialized: false
 }));
+
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 

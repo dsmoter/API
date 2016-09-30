@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var models = require("../models");
+var express = require("express"),
+    router = express.Router(),
+    models = require("../models");
 
 router.post('/register', function(req, res) {
   if(!req.body.name || !req.body.password || !req.body.role) {
@@ -18,7 +18,8 @@ router.post('/register', function(req, res) {
     }).spread(function(user, created) {
 
       if(created) {
-        res.json( { "info" : "You have successfully registered." } );
+        //res.json( { "info" : "You have successfully registered." } );
+        res.sendStatus(200);
       } else {
         res.status(400).json({ "error": 'That name is reserved'});
       }
@@ -48,7 +49,8 @@ router.post('/login', function(req, res) {
         req.session.role = user.role;
         req.session.authenticated = true;
         req.session.UID = user.id;
-        res.json( { "info": "You logged in." } );
+        //res.json( { "info": "You logged in." } );
+        res.sendStatus(200);
       } else {
         res.status(401).json({ "error": "Wrong username or password."});
       }
@@ -82,7 +84,7 @@ router.get('/:id', function(req, res) {
       }
     });
   } else {
-    res.status(400).json( { "error": "You don't have permission to access this resource." } );
+    res.status(401).json( { "error": "You don't have permission to access this resource." } );
   }
   
 });
@@ -109,13 +111,11 @@ router.post('/:id', function(req, res) {
               password: req.body.password,
               role: req.body.role
             }).then(function(result) {
-              res.json( { "info": "User successfully updated." } );
-              //res.sendStatus(200);
+              //res.json( { "info": "User successfully updated." } );
+              res.sendStatus(200);
             }, function(reject) {
               res.status(400).json( { "error": "An error occured when an attempt to update an user info" } );
             });
-
-            // TODO: if user.id === req.params.id to logout
 
           } else if(req.session.role === "editor") { // nie moze zmieniac uprawnien adminowi oraz nie może nadawać uprawnienia admin
             
@@ -129,8 +129,8 @@ router.post('/:id', function(req, res) {
             }
 
             user.update(changes).then(function(result) {
-              res.json( { "info": "User successfully updated." } );
-              //res.sendStatus(200);
+              //res.json( { "info": "User successfully updated." } );
+              res.sendStatus(200);
             }, function(reject) {
               res.status(400).json( { "error": "An error occured when an attempt to update an user info" } );
             });
@@ -140,8 +140,8 @@ router.post('/:id', function(req, res) {
               name: req.body.name,
               password: req.body.password
             }).then(function(result) {
-              res.json( { "info": "User successfully updated." } );
-              //res.sendStatus(200);
+              //res.json( { "info": "User successfully updated." } );
+              res.sendStatus(200);
             }, function(reject) {
               res.status(400).json( { "error": "An error occured when an attempt to update an user info" } );
             });
@@ -153,7 +153,7 @@ router.post('/:id', function(req, res) {
       });
     }
   } else {
-    res.status(400).json( { "error": "You don't have permission to access this resource." } );
+    res.status(401).json( { "error": "You don't have permission to access this resource." } );
   }
 });
 
@@ -173,8 +173,8 @@ router.delete('/:id', function(req, res) {
           } else {
             user.destroy().then(function(u) {
               if(u) {
-                res.json( { "info": "User successfully deleted." } );
-                //res.sendStatus(200);
+                //res.json( { "info": "User successfully deleted." } );
+                res.sendStatus(200);
               } else {
                 res.status(400).json( { "error": "An error occured when an attempt to delete an user." } );
               }
@@ -186,7 +186,7 @@ router.delete('/:id', function(req, res) {
       
     });
   } else {
-    res.status(400).json( { "error": "You don't have permission to access this resource." } );
+    res.status(401).json( { "error": "You don't have permission to access this resource." } );
   }
 });
 
