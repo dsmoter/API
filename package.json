@@ -1,0 +1,22 @@
+{
+  "name": "zadanie",
+  "version": "1.0.0",
+  "description": "Zadanie rekrutacyjne - The Nets",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dawid Smoter",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "mysql": "^2.11.1",
+    "sequelize": "^3.24.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
